@@ -2,7 +2,8 @@
 
 pragma solidity ^0.8.18;
 
-import {VRFCoordinatorV2Interface} from "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
+import {VRFCoordinatorV2Interface} from "lib/chainlink-brownie-contracts/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
+import {VRFConsumerBaseV2} from "lib/chainlink-brownie-contracts/contracts/src/v0.8/VRFConsumerBaseV2.sol";
 
 
 /**
@@ -11,7 +12,7 @@ import {VRFCoordinatorV2Interface} from "@chainlink/contracts/src/v0.8/interface
  * @notice This contract is for creating simple lottery system called Raffle
  */
 
-contract Raffle {
+abstract contract Raffle is VRFConsumerBaseV2{
 
     error Raffle__notEnoughEthSent();
 
@@ -35,7 +36,7 @@ contract Raffle {
 
     event EnteredRaffle(address indexed player);
 
-    constructor(uint256 entranceFee , uint256 interval , address vrfCoordinator , bytes32 gasLane , uint64 subscriptionId ,  uint32 callbackGasLimit){
+    constructor(uint256 entranceFee , uint256 interval , address vrfCoordinator , bytes32 gasLane , uint64 subscriptionId ,  uint32 callbackGasLimit)VRFConsumerBaseV2(vrfCoordinator){
         i_entranceFee = entranceFee;
         i_interval = interval;
         i_vrfCoordinator = VRFCoordinatorV2Interface(vrfCoordinator);
