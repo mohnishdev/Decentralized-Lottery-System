@@ -68,8 +68,14 @@ abstract contract Raffle is VRFConsumerBaseV2{
         i_callbackGasLimit,
         NUM_WORDs
        );
-
     //    
+    }
+
+    function fulfillRandomWords(
+        uint256 requestId,
+        uint256[] memory randomWords
+    ) internal override {
+        
     }
 
     function getEntranceFee() external view returns (uint256){
