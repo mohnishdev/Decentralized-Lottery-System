@@ -1,4 +1,5 @@
-// SPDX-License_Identifier: MIT
+// SPDX-License-Identifier: MIT
+// solhint-disable-line
 
 pragma solidity ^0.8.18;
 
@@ -12,7 +13,7 @@ import {VRFConsumerBaseV2} from "lib/chainlink-brownie-contracts/contracts/src/v
  * @dev Implements chainlink vrf
  */
 
-abstract contract Raffle is VRFConsumerBaseV2 {
+contract Raffle is VRFConsumerBaseV2 {
     error Raffle__NotEnoughEthSent();
     error Raffle__TransferFailed();
     error Raffle__RaffleNotOpen();
@@ -148,4 +149,13 @@ function performUpkeep() external {
     function getEntranceFee() external view returns (uint256) {
         return i_entranceFee;
     }
+
+    function getRaffleState() external view returns(RaffleState){
+        return s_raffleState;
+    }
+
+    function getPlayer(uint256 indexOfPlayer) external view returns(address){
+        return s_players[indexOfPlayer];
+    }
 }
+
